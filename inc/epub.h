@@ -43,11 +43,6 @@ int epub_init(const char* filepath);
 char *get_root_file(void);
 
 /**
- * @brief get the desired node from the passed XML content
- */
-xmlNodePtr get_node(const unsigned char *xml_buf, const char *s);
-
-/**
  * @brief function to clean up the epub module
  */
 void epub_destroy(void);

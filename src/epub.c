@@ -55,25 +55,6 @@ int epub_init(const char* filepath)
         return epub.zipfile ? 1 : 0;
 }
 
-/*
- * @brief get the desired node from the XML content passed
- */
-xmlNodePtr get_node(const unsigned char *xml_buf, const char *s)
-{
-        /* is there any requirement of the xml_buf here ? */
-        /* code will be added shortly */
-        xmlDocPtr xdoc = NULL;
-        xmlNodePtr xnode = NULL;
-
-        /* get the document from the xml_buf passed */
-        xdoc = xmlParseDoc(xml_buf);
-
-        /* write the code for freeing the memory of the doc_ptr */
-        if (xdoc)
-                xmlFreeDoc(xdoc);
-        return xnode;
-}
-
 /**
  * @brief get the fullpath of the root file
  */
@@ -93,18 +74,6 @@ char *get_root_file(void)
                 fprintf(stderr, "Error while reading the file : %s",
                                 CONTAINER);
 
-        /* after reading the data into the cbuf, pass it though the xml parsing
-         * functions - need to write a generic function for getting the proper
-         * information from the document */
-        xmlDocPtr cdoc = xmlParseDoc((const xmlChar *)epub.cbuf);
-        xmlNodePtr cur = xmlDocGetRootElement(cdoc);
-
-        cur = cur->xmlChildrenNode;
-        while (cur) {
-                printf("Name of element : %s\n", cur->name);
-                cur = cur->next;
-        }
-        xmlFreeDoc(cdoc);
         /* now get the specified substring */
         epub.rfpath = _get_fpath(epub.rfpath, epub.cbuf);
 

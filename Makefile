@@ -4,11 +4,11 @@
 CFLAGS = -Wall -Wreturn-type -Werror -std=c11
 DBG_FLAGS := -g -g3 -O0 -DENABLE_DEBUG
 REL_FLAGS := -O2
-LDFLAGS := -lzip
+LDFLAGS := -lzip -lxml2
 
 EXEC := epb_test
 BUILD_DIR := build
-INC_DIR := .
+INC_DIR := . -I/usr/include/libxml2/
 SRC_DIR := src
 SRCS := $(wildcard src/*.c)
 OBJS := $(patsubst %.c, $(BUILD_DIR)/%.o, $(notdir $(SRCS)))
