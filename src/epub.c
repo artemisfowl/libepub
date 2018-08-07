@@ -21,7 +21,8 @@ static long int _get_container_fsize(struct zip *z)
         return 0;
 }
 
-static char *_get_fpath(char *sstr, char *container_dat)
+static char *_parse_data(char *sstr, char *container_dat, char delim,
+                char *search_term)
 {
         /* if container data is not present, return NULL immediately */
         if (!container_dat)
@@ -29,12 +30,12 @@ static char *_get_fpath(char *sstr, char *container_dat)
 
         /* increment till the part where the index is pointing to the last of
          * the search pattern - ROOT_FILE */
-        char *index = strstr(container_dat, ROOT_FILE);
-        for (unsigned long c = 0; c < strlen(ROOT_FILE); c++, index++);
+        char *index = strstr(container_dat, search_term);
+        for (unsigned long c = 0; c < strlen(search_term); c++, index++);
 
         /* ascertain the number of bytes to be read */
-        unsigned long i = strlen(ROOT_FILE);
-        for (; index[i] != '"'; i++);
+        unsigned long i = strlen(search_term);
+        for (; index[i] != delim; i++);
         sstr = calloc(i + 1, sizeof(char));
 
         /* now process the substring */
@@ -75,7 +76,7 @@ char *get_root_file(void)
                                 CONTAINER);
 
         /* now get the specified substring */
-        epub.rfpath = _get_fpath(epub.rfpath, epub.cbuf);
+        epub.rfpath = _parse_data(epub.rfpath, epub.cbuf, '"');
 
         if (zfile)
                 zip_fclose(zfile);

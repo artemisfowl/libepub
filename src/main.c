@@ -16,8 +16,6 @@ int main(void)
 
         /* now read the container file */
         printf("Value obtained : %s\n", get_root_file());
-        /* let's rewrite the code for the get_root_file function with that of
-         * libxml code */
 
         /* destroy the epub library instance */
         epub_destroy();
