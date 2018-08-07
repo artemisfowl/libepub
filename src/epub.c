@@ -53,6 +53,8 @@ int epub_init(struct epub_t *epub_str, const char* filepath)
         /* open the zip file in RD_ONLY mode */
         int err;
         epub_str->zipfile = zip_open(filepath, ZIP_RDONLY, &err);
+        epub_str->cbuf = NULL;
+        epub_str->rfpath = NULL;
         return epub.zipfile ? 1 : 0;
 }
 
@@ -91,6 +93,6 @@ void epub_destroy(struct epub_t *epub_str)
 {
         if (epub_str->zipfile)
                 zip_close(epub_str->zipfile);
-        //free(epub_str->rfpath);
-        //free(epub_str->cbuf);
+        free(epub_str->rfpath);
+        free(epub_str->cbuf);
 }
