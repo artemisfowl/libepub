@@ -10,14 +10,17 @@ int main(void)
 {
         printf("Working!!!\n");
 
+        /* first create a copy of the epub library structure */
+        struct epub_t epub;
+
         /* initialise the epub library */
-        if (epub_init("../test/Wizard - Marc Seifer.epub"))
+        if (epub_init(&epub, "../test/Wizard - Marc Seifer.epub"))
                 printf("Epub file has been opened properly\n");
 
         /* now read the container file */
-        printf("Value obtained : %s\n", get_root_file());
+        //printf("Value obtained : %s\n", get_root_file());
 
         /* destroy the epub library instance */
-        epub_destroy();
+        epub_destroy(&epub);
         return 0;
 }

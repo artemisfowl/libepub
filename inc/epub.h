@@ -33,9 +33,10 @@ struct epub_t {
 
 /**
  * @brief function to initialise the epub module
+ * @params [epub_str] pointer to the structure created
  * @params [filepath] path of the epub file to be opened
  */
-int epub_init(const char* filepath);
+int epub_init(struct epub_t *spub_str, const char* filepath);
 
 /**
  * @brief get the fullpath of the root file
@@ -45,6 +46,6 @@ char *get_root_file(void);
 /**
  * @brief function to clean up the epub module
  */
-void epub_destroy(void);
+void epub_destroy(struct epub_t *epub_str);
 
 #endif

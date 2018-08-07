@@ -48,11 +48,11 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
 /*
  * @brief init function for the epub module
  */
-int epub_init(const char* filepath)
+int epub_init(struct epub_t *epub_str, const char* filepath)
 {
         /* open the zip file in RD_ONLY mode */
         int err;
-        epub.zipfile = zip_open(filepath, ZIP_RDONLY, &err);
+        epub_str->zipfile = zip_open(filepath, ZIP_RDONLY, &err);
         return epub.zipfile ? 1 : 0;
 }
 
@@ -76,7 +76,7 @@ char *get_root_file(void)
                                 CONTAINER);
 
         /* now get the specified substring */
-        epub.rfpath = _parse_data(epub.rfpath, epub.cbuf, '"');
+        epub.rfpath = _parse_data(epub.rfpath, epub.cbuf, '"', ROOT_FILE);
 
         if (zfile)
                 zip_fclose(zfile);
@@ -87,10 +87,10 @@ char *get_root_file(void)
 /*
  * @brief destroy the resources used for parsing the epub file
  */
-void epub_destroy(void)
+void epub_destroy(struct epub_t *epub_str)
 {
-        if (epub.zipfile)
-                zip_close(epub.zipfile);
-        free(epub.rfpath);
-        free(epub.cbuf);
+        if (epub_str->zipfile)
+                zip_close(epub_str->zipfile);
+        //free(epub_str->rfpath);
+        //free(epub_str->cbuf);
 }
