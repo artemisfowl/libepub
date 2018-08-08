@@ -45,6 +45,11 @@ int epub_init(struct epub_t *spub_str, const char* filepath);
 char *get_root_file(struct epub_t *epub_str);
 
 /**
+ * @brief function to parse required xml file and load the attributes and
+ * filepath pair
+ */
+
+/**
  * @brief function to clean up the epub module
  */
 void epub_destroy(struct epub_t *epub_str);
