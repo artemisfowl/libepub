@@ -6,8 +6,6 @@
 #include "../inc/epub.h"
 #include <string.h>
 
-struct epub_t epub;
-
 /* internal functions - not to be exposed to the user */
 static long int _get_container_fsize(struct zip *z)
 {
@@ -36,6 +34,8 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
         /* ascertain the number of bytes to be read */
         unsigned long i = strlen(search_term);
         for (; index[i] != delim; i++);
+        //if (sstr)
+                //free(sstr);
         sstr = calloc(i + 1, sizeof(char));
 
         /* now process the substring */
@@ -55,35 +55,43 @@ int epub_init(struct epub_t *epub_str, const char* filepath)
         epub_str->zipfile = zip_open(filepath, ZIP_RDONLY, &err);
         epub_str->cbuf = NULL;
         epub_str->rfpath = NULL;
-        return epub.zipfile ? 1 : 0;
+        return epub_str->zipfile ? 1 : 0;
 }
 
 /**
  * @brief get the fullpath of the root file
  */
-char *get_root_file(void)
+char *get_root_file(struct epub_t *epub_str)
 {
-        struct zip_file *zfile = zip_fopen(epub.zipfile, CONTAINER,
+        struct zip_file *zfile = zip_fopen(epub_str->zipfile, CONTAINER,
                         ZIP_FL_UNCHANGED);
 
         /* get the size of the container file */
-        long container_fsize = _get_container_fsize(epub.zipfile);
+        long container_fsize = _get_container_fsize(epub_str->zipfile);
 
         /* create the buffer to be returned */
-        epub.cbuf = calloc(container_fsize + 1, sizeof(char));
+        epub_str->cbuf = calloc(container_fsize + 1, sizeof(char));
 
         /* read the contents of the container file */
-        if (zip_fread(zfile, epub.cbuf, container_fsize) == EOF)
-                fprintf(stderr, "Error while reading the file : %s",
+        if (zip_fread(zfile, epub_str->cbuf, container_fsize) == EOF)
+                fprintf(stderr, "Error while reading the file : %s\n",
                                 CONTAINER);
 
         /* now get the specified substring */
-        epub.rfpath = _parse_data(epub.rfpath, epub.cbuf, '"', ROOT_FILE);
+        epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,
+                        '"', ROOT_FILE);
+
+        /* let's check if the parse data function is truly free of any hard
+         * coded section/data */
+        char *s = NULL;
+        s = _parse_data(s, "data/somefile/\"extra_file\"",
+                                '"', "somefile/\"");
+        printf("Data found : %s\n", s);
 
         if (zfile)
                 zip_fclose(zfile);
 
-        return epub.rfpath;
+        return epub_str->rfpath;
 }
 
 /*

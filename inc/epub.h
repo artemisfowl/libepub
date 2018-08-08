@@ -41,7 +41,7 @@ int epub_init(struct epub_t *spub_str, const char* filepath);
 /**
  * @brief get the fullpath of the root file
  */
-char *get_root_file(void);
+char *get_root_file(struct epub_t *epub_str);
 
 /**
  * @brief function to clean up the epub module
