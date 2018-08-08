@@ -27,6 +27,7 @@
  */
 struct epub_t {
         struct zip *zipfile;            /* Epub file to be processed */
+        /* is this one even required? */
         char *cbuf;                     /* container file buffer */
         char *rfpath;                   /* root filepath */
 };

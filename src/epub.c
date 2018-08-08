@@ -7,13 +7,13 @@
 #include <string.h>
 
 /* internal functions - not to be exposed to the user */
-static long int _get_container_fsize(struct zip *z)
+static long int _get_fsize(struct zip *z, const char *fname)
 {
         struct zip_stat zs;
         for (int i = 0; i < zip_get_num_entries(z, ZIP_FL_UNCHANGED); i++) {
                 if (zip_stat_index(z, i, 0, &zs) == 0)
-                        if (strncmp(zs.name, CONTAINER,
-                                                strlen(CONTAINER)) == 0)
+                        if (strncmp(zs.name, fname,
+                                                strlen(fname)) == 0)
                                 return zs.size;
         }
         return 0;
@@ -65,7 +65,7 @@ char *get_root_file(struct epub_t *epub_str)
                         ZIP_FL_UNCHANGED);
 
         /* get the size of the container file */
-        long container_fsize = _get_container_fsize(epub_str->zipfile);
+        long container_fsize = _get_fsize(epub_str->zipfile, CONTAINER);
 
         /* create the buffer to be returned */
         epub_str->cbuf = calloc(container_fsize + 1, sizeof(char));
@@ -79,6 +79,7 @@ char *get_root_file(struct epub_t *epub_str)
         epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,
                         '"', ROOT_FILE);
 
+#if 0
         /* let's check if the parse data function is truly free of any hard
          * coded section/data */
         char *s = NULL;
@@ -88,6 +89,7 @@ char *get_root_file(struct epub_t *epub_str)
         /* this is what was causing the memory leak - since this is pointing to
          * the heap */
         free(s);
+#endif
 
         if (zfile)
                 zip_fclose(zfile);
