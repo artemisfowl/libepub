@@ -34,8 +34,6 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
         /* ascertain the number of bytes to be read */
         unsigned long i = strlen(search_term);
         for (; index[i] != delim; i++);
-        //if (sstr)
-                //free(sstr);
         sstr = calloc(i + 1, sizeof(char));
 
         /* now process the substring */
@@ -87,6 +85,9 @@ char *get_root_file(struct epub_t *epub_str)
         s = _parse_data(s, "data/somefile/\"extra_file\"",
                                 '"', "somefile/\"");
         printf("Data found : %s\n", s);
+        /* this is what was causing the memory leak - since this is pointing to
+         * the heap */
+        free(s);
 
         if (zfile)
                 zip_fclose(zfile);
