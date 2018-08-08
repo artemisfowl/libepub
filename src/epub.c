@@ -44,6 +44,15 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
 }
 
 /*
+ * @brief get the desired node from the xml data passed
+ */
+xmlNodePtr get_node(struct epub_t *spub_str)
+{
+        xmlNodePtr cur = NULL;
+        return cur;
+}
+
+/*
  * @brief init function for the epub module
  */
 int epub_init(struct epub_t *epub_str, const char* filepath)
@@ -78,18 +87,6 @@ char *get_root_file(struct epub_t *epub_str)
         /* now get the specified substring */
         epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,
                         '"', ROOT_FILE);
-
-#if 0
-        /* let's check if the parse data function is truly free of any hard
-         * coded section/data */
-        char *s = NULL;
-        s = _parse_data(s, "data/somefile/\"extra_file\"",
-                                '"', "somefile/\"");
-        printf("Data found : %s\n", s);
-        /* this is what was causing the memory leak - since this is pointing to
-         * the heap */
-        free(s);
-#endif
 
         if (zfile)
                 zip_fclose(zfile);

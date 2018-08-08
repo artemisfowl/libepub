@@ -20,6 +20,9 @@ int main(void)
         /* now read the container file */
         printf("Value obtained : %s\n", get_root_file(&epub));
 
+        /* now read the root file and store the values in the map */
+        /* code will be added later */
+
         /* destroy the epub library instance */
         epub_destroy(&epub);
         return 0;
