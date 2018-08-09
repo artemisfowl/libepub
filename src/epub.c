@@ -46,9 +46,15 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_node(struct epub_t *spub_str)
+xmlNodePtr get_node(struct epub_t *epub_str)
 {
         xmlNodePtr cur = NULL;
+        xmlDocPtr doc = NULL;
+
+        /* first read the XML data from the zip file */
+
+        /* free the document before returning */
+        xmlFreeDoc(doc);
         return cur;
 }
 
