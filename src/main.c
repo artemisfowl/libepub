@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include "../inc/epub.h"
+#include <assert.h>
 
 int main(void)
 {
@@ -20,8 +21,8 @@ int main(void)
         /* now read the container file */
         printf("Value obtained : %s\n", get_root_file(&epub));
 
-        /* now read the root file and store the values in the map */
-        /* code will be added later */
+        /* check the output of the getnode function */
+        (void)get_node(&epub, "rootfile");
 
         /* destroy the epub library instance */
         epub_destroy(&epub);

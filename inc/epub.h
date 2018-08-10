@@ -46,8 +46,10 @@ char *get_root_file(struct epub_t *epub_str);
 /**
  * @brief function to parse required xml file and load the attributes and
  * filepath pair
+ * @params [rfpath] Root file path
+ * @params [node_name] Name of the node to be searched
  */
-xmlNodePtr get_node(struct epub_t *epub_str);
+xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name);
 
 /**
  * @brief function to clean up the epub module

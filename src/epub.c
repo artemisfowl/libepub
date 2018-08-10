@@ -46,12 +46,14 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_node(struct epub_t *epub_str)
+xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name)
 {
         xmlNodePtr cur = NULL;
         xmlDocPtr doc = NULL;
 
         /* first read the XML data from the zip file */
+        long int fsize = _get_fsize(epub_str->zipfile, epub_str->rfpath);
+        printf("Size of root file : %ld\n", fsize);
 
         /* free the document before returning */
         xmlFreeDoc(doc);
