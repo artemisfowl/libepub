@@ -9,17 +9,16 @@
 
 int main(void)
 {
-        printf("Working!!!\n");
+        printf("libepub-dev testing\n");
 
         /* first create a copy of the epub library structure */
         struct epub_t epub;
 
         /* initialise the epub library */
-        if (epub_init(&epub, "../test/1.epub"))
-                printf("Epub file has been opened properly\n");
+        assert(epub_init(&epub, "../test/1.epub"));
 
-        /* now read the container file */
-        printf("Value obtained : %s\n", get_root_file(&epub));
+        /* now read the container file and get the root file location/name */
+        assert(get_root_file(&epub));
 
         /* check the output of the getnode function */
         (void)get_node(&epub, "rootfile");
