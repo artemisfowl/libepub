@@ -21,7 +21,7 @@ int main(void)
         assert(get_root_file(&epub));
 
         /* check the output of the getnode function */
-        (void)get_node(&epub, "rootfile");
+        assert(get_node(&epub, "rootfile"));
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
