@@ -78,8 +78,7 @@ xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name)
         xmlDocPtr doc = NULL;
 
         /* first read the XML data from the zip file */
-        long int fsize = _get_fsize(epub_str->zipfile, epub_str->rfpath);
-        printf("Size of root file : %ld\n", fsize);
+        char *data = NULL;
 
         /* free the document before returning */
         xmlFreeDoc(doc);
@@ -104,29 +103,12 @@ int epub_init(struct epub_t *epub_str, const char* filepath)
  */
 char *get_root_file(struct epub_t *epub_str)
 {
-        struct zip_file *zfile = zip_fopen(epub_str->zipfile, CONTAINER,
-                        ZIP_FL_UNCHANGED);
-
-        /* get the size of the container file */
-        //long container_fsize = _get_fsize(epub_str->zipfile, CONTAINER);
-
-        /* create the buffer to be returned */
-        //epub_str->cbuf = calloc(container_fsize + 1, sizeof(char));
-        epub_str->cbuf = _read_zfile(epub_str->zipfile, CONTAINER);
-
         /* read the contents of the container file */
-#if 0
-        if (zip_fread(zfile, epub_str->cbuf, container_fsize) == EOF)
-                fprintf(stderr, "Error while reading the file : %s\n",
-                                CONTAINER);
-#endif
+        epub_str->cbuf = _read_zfile(epub_str->zipfile, CONTAINER);
 
         /* now get the specified substring */
         epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,
                         '"', ROOT_FILE);
-
-        if (zfile)
-                zip_fclose(zfile);
 
         return epub_str->rfpath;
 }
