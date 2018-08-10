@@ -43,13 +43,22 @@ int epub_init(struct epub_t *spub_str, const char* filepath);
  */
 char *get_root_file(struct epub_t *epub_str);
 
+/*
+ * @brief function to read a file from the zip file provided and get the
+ * contents
+ * @params [z] zip file to be read
+ * @params [fname] name of the file to be read - file should be present in the
+ * zip file
+ */
+char *read_zfile(struct zip *z, const char *fname);
+
 /**
  * @brief function to parse required xml file and load the attributes and
  * filepath pair
- * @params [rfpath] Root file path
+ * @params [content] XML content to be parsed
  * @params [node_name] Name of the node to be searched
  */
-xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name);
+xmlNodePtr get_node(char *content, const char *node_name);
 
 /**
  * @brief function to clean up the epub module

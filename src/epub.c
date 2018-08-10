@@ -43,7 +43,7 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
         return sstr;
 }
 
-static char *_read_zfile(struct zip *z, const char *fname)
+char *read_zfile(struct zip *z, const char *fname)
 {
         /* this function will read the contents of the fname and pass the data
          * to the calling function */
@@ -72,15 +72,12 @@ static char *_read_zfile(struct zip *z, const char *fname)
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name)
+xmlNodePtr get_node(char *content, const char *node_name)
 {
         xmlNodePtr cur = NULL;
         xmlDocPtr doc = NULL;
 
-        /* first read the XML data from the zip file */
-        char *data = NULL;
-
-        /* free the document before returning */
+        /* free the resources */
         xmlFreeDoc(doc);
         return cur;
 }
@@ -104,7 +101,7 @@ int epub_init(struct epub_t *epub_str, const char* filepath)
 char *get_root_file(struct epub_t *epub_str)
 {
         /* read the contents of the container file */
-        epub_str->cbuf = _read_zfile(epub_str->zipfile, CONTAINER);
+        epub_str->cbuf = read_zfile(epub_str->zipfile, CONTAINER);
 
         /* now get the specified substring */
         epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,

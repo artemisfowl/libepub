@@ -22,6 +22,11 @@ int main(void)
         printf("Value obtained : %s\n", epub.rfpath);
 
         /* check the output of the getnode function */
+        /* before calling the get node, get the contents of the xml file to be
+         * read */
+        char *content = read_zfile(epub.zipfile, epub.rfpath);
+        printf("Content : \n%s\n", content);
+        free(content);
         //assert(get_node(&epub, "rootfile"));
 
         /* destroy the epub library instance */
