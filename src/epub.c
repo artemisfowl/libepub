@@ -47,7 +47,26 @@ static char *_read_zfile(struct zip *z, const char *fname)
 {
         /* this function will read the contents of the fname and pass the data
          * to the calling function */
-        return NULL;
+
+        /* first get the size of the file */
+        long fsize = _get_fsize(z, fname);
+
+        /* allocate the necessary memory to the buffer */
+        char *buf = calloc(fsize + 1, sizeof(char));
+
+        /* open the file in an instance of the struct zip_file */
+        struct zip_file *zfile = zip_fopen(z, fname, ZIP_FL_UNCHANGED);
+
+        /* now read the file contents */
+        if (zip_fread(zfile, buf, fsize) == EOF)
+                return NULL;
+
+        /* close zfile */
+        if (zfile)
+                zip_fclose(zfile);
+
+        /* return the result */
+        return buf;
 }
 
 /*
@@ -89,15 +108,18 @@ char *get_root_file(struct epub_t *epub_str)
                         ZIP_FL_UNCHANGED);
 
         /* get the size of the container file */
-        long container_fsize = _get_fsize(epub_str->zipfile, CONTAINER);
+        //long container_fsize = _get_fsize(epub_str->zipfile, CONTAINER);
 
         /* create the buffer to be returned */
-        epub_str->cbuf = calloc(container_fsize + 1, sizeof(char));
+        //epub_str->cbuf = calloc(container_fsize + 1, sizeof(char));
+        epub_str->cbuf = _read_zfile(epub_str->zipfile, CONTAINER);
 
         /* read the contents of the container file */
+#if 0
         if (zip_fread(zfile, epub_str->cbuf, container_fsize) == EOF)
                 fprintf(stderr, "Error while reading the file : %s\n",
                                 CONTAINER);
+#endif
 
         /* now get the specified substring */
         epub_str->rfpath = _parse_data(epub_str->rfpath, epub_str->cbuf,

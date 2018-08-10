@@ -19,9 +19,10 @@ int main(void)
 
         /* now read the container file and get the root file location/name */
         assert(get_root_file(&epub));
+        printf("Value obtained : %s\n", epub.rfpath);
 
         /* check the output of the getnode function */
-        assert(get_node(&epub, "rootfile"));
+        //assert(get_node(&epub, "rootfile"));
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
