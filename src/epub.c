@@ -43,6 +43,13 @@ static char *_parse_data(char *sstr, char *container_dat, char delim,
         return sstr;
 }
 
+static char *_read_zfile(struct zip *z, const char *fname)
+{
+        /* this function will read the contents of the fname and pass the data
+         * to the calling function */
+        return NULL;
+}
+
 /*
  * @brief get the desired node from the xml data passed
  */
