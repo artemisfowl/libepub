@@ -72,13 +72,26 @@ char *read_zfile(struct zip *z, const char *fname)
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_node(char *content, const char *node_name)
+xmlNodePtr get_node(struct epub_t *epub_str, char *content,
+                const char *node_name)
 {
+        /* necessary variables */
         xmlNodePtr cur = NULL;
-        xmlDocPtr doc = NULL;
 
-        /* free the resources */
-        xmlFreeDoc(doc);
+        /* first parse the content and get a XML document instance */
+        epub_str->doc = xmlParseDoc((const unsigned char *)content);
+
+        /* get the root element node - what happens in case */
+        cur = xmlDocGetRootElement(epub_str->doc);
+
+        /* now search for the proper node */
+        cur = cur->xmlChildrenNode;
+        while (cur != NULL) {
+                if ((!xmlStrcmp(cur->name, (const unsigned char *)node_name)))
+                        break;
+                cur = cur->next;
+        }
+
         return cur;
 }
 
@@ -92,6 +105,7 @@ int epub_init(struct epub_t *epub_str, const char* filepath)
         epub_str->zipfile = zip_open(filepath, ZIP_RDONLY, &err);
         epub_str->cbuf = NULL;
         epub_str->rfpath = NULL;
+        epub_str->doc = NULL;
         return epub_str->zipfile ? 1 : 0;
 }
 
@@ -119,4 +133,6 @@ void epub_destroy(struct epub_t *epub_str)
                 zip_close(epub_str->zipfile);
         free(epub_str->rfpath);
         free(epub_str->cbuf);
+        if (epub_str->doc)
+                xmlFreeDoc(epub_str->doc);
 }

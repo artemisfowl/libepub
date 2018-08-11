@@ -29,6 +29,7 @@ struct epub_t {
         struct zip *zipfile;            /* Epub file to be processed */
         char *cbuf;                     /* container file buffer */
         char *rfpath;                   /* root filepath */
+        xmlDocPtr doc;                  /* xml document */
 };
 
 /**
@@ -58,7 +59,8 @@ char *read_zfile(struct zip *z, const char *fname);
  * @params [content] XML content to be parsed
  * @params [node_name] Name of the node to be searched
  */
-xmlNodePtr get_node(char *content, const char *node_name);
+xmlNodePtr get_node(struct epub_t *epub_str, char *content,
+                const char *node_name);
 
 /**
  * @brief function to clean up the epub module

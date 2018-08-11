@@ -25,7 +25,12 @@ int main(void)
         /* before calling the get node, get the contents of the xml file to be
          * read */
         char *content = read_zfile(epub.zipfile, epub.rfpath);
-        printf("Content : \n%s\n", content);
+        //printf("Content : \n%s\n", content);
+
+        /* call the get node function */
+        xmlNodePtr n = get_node(&epub, content, "manifest");
+        if (n)
+                printf("Name : %s\n", n->name);
         free(content);
         //assert(get_node(&epub, "rootfile"));
 
