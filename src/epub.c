@@ -134,6 +134,12 @@ char *get_root_file(struct epub_t *epub_str)
  */
 xmlNodePtr get_node(xmlNodePtr cur, const char *node_name)
 {
+        cur = cur->xmlChildrenNode;
+        while (cur) {
+                if ((!xmlStrcmp(cur->name, (const unsigned char *)node_name)))
+                        return cur;
+                cur = cur->next;
+        }
         return NULL;
 }
 

@@ -31,9 +31,17 @@ int main(void)
         prepare_doc(&epub, content);
         xmlNodePtr n = get_root_node(&epub);
 
+        /* get the "manifest" node */
+        n = get_node(n, "manifest");
+        n = get_node(n, "item");
+
         /* get the node which corresponds to the required string */
         if (n)
                 printf("Name : %s\n", n->name);
+
+        /* write the functions for getting the properties */
+
+        /* free the resources */
         free(content);
 
         /* destroy the epub library instance */
