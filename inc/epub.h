@@ -64,7 +64,12 @@ void prepare_doc(struct epub_t *epub_str, char *content);
  * @brief function to parse required xml file and load the attributes and
  * filepath pair
  */
-xmlNodePtr get_root_node(struct epub_t *epub_str);
+xmlNodePtr get_root_node(struct epub_t *epub_str, const char *node_name);
+
+/**
+ * @brief function to get the desired node
+ */
+xmlNodePtr get_node(xmlNodePtr cur);
 
 /**
  * @brief function to clean up the epub module

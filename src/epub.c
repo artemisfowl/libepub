@@ -130,6 +130,14 @@ char *get_root_file(struct epub_t *epub_str)
 }
 
 /*
+ * @brief function to get the desired node
+ */
+xmlNodePtr get_node(xmlNodePtr cur, const char *node_name)
+{
+        return NULL;
+}
+
+/*
  * @brief destroy the resources used for parsing the epub file
  */
 void epub_destroy(struct epub_t *epub_str)

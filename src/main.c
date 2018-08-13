@@ -35,7 +35,6 @@ int main(void)
         if (n)
                 printf("Name : %s\n", n->name);
         free(content);
-        //assert(get_node(&epub, "rootfile"));
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
