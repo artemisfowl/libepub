@@ -70,6 +70,14 @@ char *read_zfile(struct zip *z, const char *fname)
 }
 
 /*
+ * @brief get the document from the XML content passed to this function
+ */
+void prepare_doc(struct epub_t *epub_str, char *content)
+{
+        epub_str->doc = xmlParseDoc((const unsigned char *)content);
+}
+
+/*
  * @brief get the desired node from the xml data passed
  */
 xmlNodePtr get_node(struct epub_t *epub_str, char *content,
@@ -79,7 +87,7 @@ xmlNodePtr get_node(struct epub_t *epub_str, char *content,
         xmlNodePtr cur = NULL;
 
         /* first parse the content and get a XML document instance */
-        epub_str->doc = xmlParseDoc((const unsigned char *)content);
+        //epub_str->doc = xmlParseDoc((const unsigned char *)content);
 
         /* get the root element node - what happens in case */
         cur = xmlDocGetRootElement(epub_str->doc);

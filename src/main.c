@@ -28,6 +28,7 @@ int main(void)
         //printf("Content : \n%s\n", content);
 
         /* call the get node function */
+        prepare_doc(&epub, content);
         xmlNodePtr n = get_node(&epub, content, "manifest");
         if (n)
                 printf("Name : %s\n", n->name);

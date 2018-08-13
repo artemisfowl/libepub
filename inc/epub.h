@@ -54,6 +54,13 @@ char *get_root_file(struct epub_t *epub_str);
 char *read_zfile(struct zip *z, const char *fname);
 
 /**
+ * @brief function to get the document for parsing - XML data
+ * @params [epub_str] epub_t structure holding the important details
+ * @params [content] content to be passed for getting the XML document
+ */
+void prepare_doc(struct epub_t *epub_str, char *content);
+
+/**
  * @brief function to parse required xml file and load the attributes and
  * filepath pair
  * @params [content] XML content to be parsed
@@ -61,6 +68,12 @@ char *read_zfile(struct zip *z, const char *fname);
  */
 xmlNodePtr get_node(struct epub_t *epub_str, char *content,
                 const char *node_name);
+
+/**
+ * @brief function to prepare the map of files and corresponding IDs
+ * @params [epub_str] epub_t structure holding the root file path
+ */
+void map_toc(struct epub_t *epub_str);
 
 /**
  * @brief function to clean up the epub module
