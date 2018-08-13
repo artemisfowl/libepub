@@ -146,10 +146,10 @@ char *get_root_file(struct epub_t *epub_str)
  */
 void epub_destroy(struct epub_t *epub_str)
 {
+        if (epub_str->doc)
+                xmlFreeDoc(epub_str->doc);
         if (epub_str->zipfile)
                 zip_close(epub_str->zipfile);
         free(epub_str->rfpath);
         free(epub_str->cbuf);
-        if (epub_str->doc)
-                xmlFreeDoc(epub_str->doc);
 }

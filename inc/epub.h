@@ -70,12 +70,6 @@ xmlNodePtr get_node(struct epub_t *epub_str, char *content,
                 const char *node_name);
 
 /**
- * @brief function to prepare the map of files and corresponding IDs
- * @params [epub_str] epub_t structure holding the root file path
- */
-void map_toc(struct epub_t *epub_str);
-
-/**
  * @brief function to clean up the epub module
  */
 void epub_destroy(struct epub_t *epub_str);
