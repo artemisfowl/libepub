@@ -29,7 +29,9 @@ int main(void)
 
         /* call the get node function */
         prepare_doc(&epub, content);
-        xmlNodePtr n = get_node(&epub, content, "manifest");
+        xmlNodePtr n = get_root_node(&epub);
+
+        /* get the node which corresponds to the required string */
         if (n)
                 printf("Name : %s\n", n->name);
         free(content);

@@ -80,21 +80,13 @@ void prepare_doc(struct epub_t *epub_str, char *content)
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_node(struct epub_t *epub_str, const char *node_name)
+xmlNodePtr get_root_node(struct epub_t *epub_str)
 {
         /* necessary variables */
         xmlNodePtr cur = NULL;
 
         /* get the root element node - what happens in case */
         cur = xmlDocGetRootElement(epub_str->doc);
-
-        /* now search for the proper node */
-        cur = cur->xmlChildrenNode;
-        while (cur != NULL) {
-                if ((!xmlStrcmp(cur->name, (const unsigned char *)node_name)))
-                        break;
-                cur = cur->next;
-        }
 
         return cur;
 }
