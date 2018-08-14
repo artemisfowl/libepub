@@ -148,6 +148,7 @@ xmlNodePtr get_node(xmlNodePtr cur, const char *node_name)
  */
 unsigned char *get_node_prop(xmlNodePtr cur, const char *attr_name)
 {
+        /* need to get all the properties under the current node */
         unsigned char *v = xmlGetProp(cur, (const unsigned char *)attr_name);
         return v ? v : NULL;
 }

@@ -40,10 +40,21 @@ int main(void)
                 printf("Name : %s\n", n->name);
 
         /* check the attribute received */
-        printf("Value obtained : %s\n", get_node_prop(n, "id"));
+        while (n) {
+                unsigned char *id = get_node_prop(n, "id");
+                if (id)
+                        printf("Value obtained : %s\n", id);
+                free(id);
+                unsigned char *href = get_node_prop(n, "href");
+                if (href)
+                        printf("Value obtained : %s\n", href);
+                free(href);
+                n = n->next;
+        }
 
         /* free the resources */
         free(content);
+        xmlFreeNode(n);
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
