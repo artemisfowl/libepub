@@ -72,6 +72,11 @@ xmlNodePtr get_root_node(struct epub_t *epub_str);
 xmlNodePtr get_node(xmlNodePtr cur, const char *node_name);
 
 /**
+ * @brief function to get the xml node properties
+ */
+unsigned char *get_node_prop(xmlNodePtr cur, const char *attr_name);
+
+/**
  * @brief function to clean up the epub module
  */
 void epub_destroy(struct epub_t *epub_str);

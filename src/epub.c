@@ -144,6 +144,15 @@ xmlNodePtr get_node(xmlNodePtr cur, const char *node_name)
 }
 
 /*
+ * @brief function to get the specified property value for the supplied node
+ */
+unsigned char *get_node_prop(xmlNodePtr cur, const char *attr_name)
+{
+        unsigned char *v = xmlGetProp(cur, (const unsigned char *)attr_name);
+        return v ? v : NULL;
+}
+
+/*
  * @brief destroy the resources used for parsing the epub file
  */
 void epub_destroy(struct epub_t *epub_str)

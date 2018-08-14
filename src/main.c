@@ -39,7 +39,8 @@ int main(void)
         if (n)
                 printf("Name : %s\n", n->name);
 
-        /* write the functions for getting the properties */
+        /* check the attribute received */
+        printf("Value obtained : %s\n", get_node_prop(n, "id"));
 
         /* free the resources */
         free(content);
