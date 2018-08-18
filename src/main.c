@@ -75,9 +75,13 @@ int main(void)
 
 	/* free the resources */
         free(content);
+	if (n)
+		xmlFreeNode(n);
 
 	/* free the new resources */
 	xmlFreeDoc(doc);
+	if (p)
+		xmlFreeNode(p);
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
