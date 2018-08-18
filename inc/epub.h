@@ -58,13 +58,13 @@ char *read_zfile(struct zip *z, const char *fname);
  * @params [epub_str] epub_t structure holding the important details
  * @params [content] content to be passed for getting the XML document
  */
-void prepare_doc(struct epub_t *epub_str, char *content);
+xmlDocPtr prepare_doc(char *content);
 
 /**
  * @brief function to parse required xml file and load the attributes and
  * filepath pair
  */
-xmlNodePtr get_root_node(struct epub_t *epub_str);
+xmlNodePtr get_root_node(xmlDocPtr doc);
 
 /**
  * @brief function to get the desired node

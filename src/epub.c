@@ -72,21 +72,22 @@ char *read_zfile(struct zip *z, const char *fname)
 /*
  * @brief get the document from the XML content passed to this function
  */
-void prepare_doc(struct epub_t *epub_str, char *content)
+xmlDocPtr prepare_doc(char *content)
 {
-        epub_str->doc = xmlParseDoc((const unsigned char *)content);
+        xmlDocPtr doc = xmlParseDoc((const unsigned char *)content);
+	return doc ? doc : NULL;
 }
 
 /*
  * @brief get the desired node from the xml data passed
  */
-xmlNodePtr get_root_node(struct epub_t *epub_str)
+xmlNodePtr get_root_node(xmlDocPtr doc)
 {
         /* necessary variables */
         xmlNodePtr cur = NULL;
 
         /* get the root element node - what happens in case */
-        cur = xmlDocGetRootElement(epub_str->doc);
+        cur = xmlDocGetRootElement(doc);
 
         return cur;
 }
