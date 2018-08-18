@@ -93,15 +93,6 @@ xmlNodePtr get_root_node(xmlDocPtr doc)
 }
 
 /*
- * @brief function to map the pages to the ids and prepare the table of
- * contents
- */
-void map_toc(struct epub_t *epub_str)
-{
-        /* code will be added later */
-}
-
-/*
  * @brief init function for the epub module
  */
 int epub_init(struct epub_t *epub_str, const char* filepath)
