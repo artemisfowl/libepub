@@ -41,7 +41,6 @@ int main(void)
 
         /* check the attribute received */
         while (n) {
-#if 0
                 unsigned char *id = get_node_prop(n, "id");
                 if (id)
                         printf("Value obtained : %s\n", id);
@@ -50,7 +49,6 @@ int main(void)
                 if (href)
                         printf("Value obtained : %s\n", href);
                 free(href);
-#endif
                 n = n->next;
         }
 
@@ -58,7 +56,6 @@ int main(void)
 		printf("No more node information can be provided\n");
 
         /* checking another instance creation */
-        //printf("Content : \n%s\n", content);
 	xmlDocPtr doc = prepare_doc(content);
 	xmlNodePtr p = get_root_node(doc);
 
@@ -68,19 +65,19 @@ int main(void)
 	if (p)
 		printf("Name of node : %s\n", p->name);
 
+	while (p) {
+		unsigned char *idref = get_node_prop(p, "idref");
+		if (idref)
+			printf("Property value obtained : %s\n", idref);
+		free(idref);
+		p = p->next;
+	}
+
 	/* free the resources */
         free(content);
-#if 0
-	if (n)
-		xmlFreeNode(n);
-#endif
 
 	/* free the new resources */
 	xmlFreeDoc(doc);
-#if 0
-	if (p)
-		xmlFreeNode(p);
-#endif
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
