@@ -63,17 +63,24 @@ int main(void)
 	xmlNodePtr p = get_root_node(doc);
 
 	p = get_node(p, "spine");
+	p = get_node(p, "itemref");
 
 	if (p)
 		printf("Name of node : %s\n", p->name);
 
 	/* free the resources */
         free(content);
-        xmlFreeNode(n);
+#if 0
+	if (n)
+		xmlFreeNode(n);
+#endif
 
 	/* free the new resources */
 	xmlFreeDoc(doc);
-	//xmlFreeNode(p);
+#if 0
+	if (p)
+		xmlFreeNode(p);
+#endif
 
         /* destroy the epub library instance */
         epub_destroy(&epub);
